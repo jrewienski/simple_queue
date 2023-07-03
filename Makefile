@@ -1,4 +1,4 @@
-CFLAGS = --coverage -Wall -fprofile-arcs -ftest-coverage -g
+CFLAGS = --coverage -Wall -fprofile-arcs -ftest-coverage -g --pedantic
 
 test : main.o simple_queue.o
 		cc -o test.out $(CFLAGS) main.o simple_queue.o

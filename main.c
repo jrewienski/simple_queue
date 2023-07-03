@@ -7,6 +7,16 @@
 
 DEF_QUEUE(uint8_t, myq, QUEUE_SIZE);
 
+typedef struct {
+    uint8_t val1;
+    uint32_t val2;
+    bool flag1;
+    bool flag2;
+} test_type;
+
+DEF_QUEUE(test_type, my_struct_q, QUEUE_SIZE);
+
+
 int main() {
     uint8_t test_val = 0;
 
@@ -70,4 +80,34 @@ int main() {
         assert(test_val == current_val);
     }
 
+
+    test_type test_t_val;
+    test_t_val.val1 = 1;
+    test_t_val.val2 = test_t_val.val1 * 2;
+    test_t_val.flag1 = false;
+    test_t_val.flag2 = false;
+
+    /* Add 3 elements and check size. */
+    for (int i = 1; i < 4; i++) {
+        assert(queue_push(&my_struct_q, &test_t_val) == QUEUE_OK);
+        test_t_val.val1++;
+        test_t_val.val2 = test_t_val.val1 * 2;
+    }
+    assert(queue_current_size(&my_struct_q) == 3);
+
+    test_type current_t_val;
+    current_t_val.val1 = 0;
+    current_t_val.val2 = 0;
+    current_t_val.flag1 = true;
+    current_t_val.flag2 = false;
+
+    
+    for (int i = 1; i < 4; i++) {
+        assert(queue_pop(&my_struct_q, &current_t_val) == QUEUE_OK);
+        assert(current_t_val.val1 == i);
+        assert(current_t_val.val2 == current_t_val.val1 * 2);
+    }
+    assert(queue_current_size(&my_struct_q) == 0);
+
+    assert(queue_pop(&my_struct_q, &current_t_val) == QUEUE_EMPTY);
 }

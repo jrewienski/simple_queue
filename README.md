@@ -41,4 +41,14 @@ Creating 'simple_queue.c.gcov'
 ```
 
 ## Static code analysis
-Cppcheck shows warning regarding void pointer being incremented. (To be fixed).
+Cppcheck shows no warnings.
+
+```
+% cppcheck --enable=all main.c simple_queue.c simple_queue.h
+Checking main.c ...
+1/3 files checked 47% done
+Checking simple_queue.c ...
+2/3 files checked 75% done
+Checking simple_queue.h ...
+3/3 files checked 100% done
+```
